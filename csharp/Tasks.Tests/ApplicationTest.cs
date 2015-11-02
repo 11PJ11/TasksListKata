@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using System.IO;
 
 namespace Tasks
 {
@@ -99,7 +98,7 @@ namespace Tasks
 		{
 			foreach (var line in expectedOutput)
 			{
-				Read(line + "\n");
+				Read(line + "\r\n");
 			}
 		}
 
