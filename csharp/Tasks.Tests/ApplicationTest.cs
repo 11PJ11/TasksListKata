@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 using System;
 
 namespace Tasks
@@ -8,31 +9,34 @@ namespace Tasks
 	{
 		public const string PROMPT = "> ";
 
-		private FakeConsole console;
-		private System.Threading.Thread applicationThread;
+		private FakeConsole _console;
+		private Thread _applicationThread;
 
 		[SetUp]
 		public void StartTheApplication()
 		{
-			this.console = new FakeConsole();
-			var taskList = new TaskList(console);
-			this.applicationThread = new System.Threading.Thread(() => taskList.Run());
-			applicationThread.Start();
+			_console = new FakeConsole();
+			var taskList = new TaskList(_console);
+			_applicationThread = new Thread(taskList.Run);
+			_applicationThread.Start();
 		}
 
 		[TearDown]
 		public void KillTheApplication()
 		{
-			if (applicationThread == null || !applicationThread.IsAlive)
+			if (_applicationThread == null || 
+               !_applicationThread.IsAlive)
 			{
 				return;
 			}
 
-			applicationThread.Abort();
-			throw new Exception("The application is still running.");
+			_applicationThread.Abort();
+            
+            if (_applicationThread.IsAlive)
+			    throw new Exception("The application is still running.");
 		}
 
-		[Test, Timeout(1000)]
+		[Test, Timeout(500)]
 		public void ItWorks()
 		{
 			Execute("show");
@@ -58,9 +62,11 @@ namespace Tasks
 			Execute("add task training Interaction-Driven Design");
 
 			Execute("check 1");
+			Execute("check 2");
 			Execute("check 3");
 			Execute("check 5");
 			Execute("check 6");
+			Execute("uncheck 2");
 
 			Execute("show");
 			ReadLines(
@@ -81,6 +87,35 @@ namespace Tasks
 			Execute("quit");
 		}
 
+        [Test, Timeout(500)]
+        public void ItShowsHelp()
+        {
+            Execute("help");
+
+            ReadLines(
+                "Commands:",
+                "  show",
+                "  add project <project name>",
+                "  add task <project name> <task description>",
+                "  check <task ID>",
+                "  uncheck <task ID>",
+                ""
+            );
+
+            Execute("quit");
+        }
+
+        [Test, Timeout(500)]
+        public void ItShowsAnErrorMessageForUnknownCommand()
+        {
+            Execute("unknown");
+
+            Read("I don't know what the command \"unknown\" is.");
+            Read("\r\n");
+
+            Execute("quit");
+        }
+
 		private void Execute(string command)
 		{
 			Read(PROMPT);
@@ -89,8 +124,7 @@ namespace Tasks
 
 		private void Read(string expectedOutput)
 		{
-			var length = expectedOutput.Length;
-			var actualOutput = console.RetrieveOutput(expectedOutput.Length);
+		    var actualOutput = _console.RetrieveOutput(expectedOutput.Length);
 			Assert.AreEqual(expectedOutput, actualOutput);
 		}
 
@@ -104,7 +138,7 @@ namespace Tasks
 
 		private void Write(string input)
 		{
-			console.SendInput(input + "\n");
+			_console.SendInput(input + "\r\n");
 		}
 	}
 }

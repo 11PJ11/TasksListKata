@@ -27,11 +27,12 @@ namespace Tasks
 		{
 			while (true) {
 				console.Write("> ");
-				var command = console.ReadLine();
-				if (command == QUIT) {
-					break;
-				}
-				Execute(command);
+                var command = console.ReadLine();
+                if (command == QUIT)
+                {
+                    break;
+                }
+                Execute(command);
 			}
 		}
 
