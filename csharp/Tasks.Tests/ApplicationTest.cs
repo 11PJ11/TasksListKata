@@ -4,7 +4,7 @@ using System;
 
 namespace Tasks
 {
-	[TestFixture]
+    [TestFixture]
 	public sealed class ApplicationTest
 	{
 		public const string PROMPT = "> ";
@@ -16,7 +16,7 @@ namespace Tasks
 		public void StartTheApplication()
 		{
 			_console = new FakeConsole();
-			var taskList = new TaskList(_console);
+			var taskList = new Projects(_console);
 			_applicationThread = new Thread(taskList.Run);
 			_applicationThread.Start();
 		}
