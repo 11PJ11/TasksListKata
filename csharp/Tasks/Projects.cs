@@ -16,7 +16,7 @@ namespace Tasks
         private readonly IDictionary<string, IList<Task>> _projects =
             new Dictionary<string, IList<Task>>();
 
-        private readonly IConsole console;
+        private readonly IConsole _console;
 
         private long _lastId = 0;
         private string PROMPT = "> ";
@@ -29,15 +29,15 @@ namespace Tasks
 
         public Projects(IConsole console)
         {
-            this.console = console;
+            this._console = console;
         }
 
         public void Run()
         {
             while (true)
             {
-                console.Write(PROMPT);
-                var command = console.ReadLine();
+                _console.Write(PROMPT);
+                var command = _console.ReadLine();
                 if (command == QUIT)
                 {
                     break;
@@ -86,25 +86,17 @@ namespace Tasks
             }
         }
 
+        //TODO: add a project class
         private void WriteOneProject(KeyValuePair<string, IList<Task>> project)
         {
-            WriteProjectName(project.Key);
-            WriteAllProjectTasks(project.Value);
+            var tastWriter = new TaskWriter(_console);
+            WriteProjectName(project);
+            tastWriter.WriteTasksIn(project);
         }
 
-        private void WriteProjectName(string projectName)
+        private void WriteProjectName(KeyValuePair<string, IList<Task>> project)
         {
-            console.WriteLine(projectName);
-        }
-
-        private void WriteAllProjectTasks(IList<Task> projectTasks)
-        {
-            var taskWriter = new TaskWriter(console);
-            foreach (var task in projectTasks)
-            {
-                taskWriter.WriteOneProjectTask(task);
-            }
-            console.WriteLine();
+            _console.WriteLine(project.Key);
         }
 
         private void Add(string commandLine)
@@ -158,7 +150,7 @@ namespace Tasks
                 .FirstOrDefault();
             if (identifiedTask == null)
             {
-                console.WriteLine("Could not find a task with an ID of {0}.", id);
+                _console.WriteLine("Could not find a task with an ID of {0}.", id);
                 return;
             }
 
@@ -167,18 +159,18 @@ namespace Tasks
 
         private void Help()
         {
-            console.WriteLine("Commands:");
-            console.WriteLine("  show");
-            console.WriteLine("  add project <project name>");
-            console.WriteLine("  add task <project name> <task description>");
-            console.WriteLine("  check <task ID>");
-            console.WriteLine("  uncheck <task ID>");
-            console.WriteLine();
+            _console.WriteLine("Commands:");
+            _console.WriteLine("  show");
+            _console.WriteLine("  add project <project name>");
+            _console.WriteLine("  add task <project name> <task description>");
+            _console.WriteLine("  check <task ID>");
+            _console.WriteLine("  uncheck <task ID>");
+            _console.WriteLine();
         }
 
         private void Error(string command)
         {
-            console.WriteLine("I don't know what the command \"{0}\" is.", command);
+            _console.WriteLine("I don't know what the command \"{0}\" is.", command);
         }
 
         private long NextId()

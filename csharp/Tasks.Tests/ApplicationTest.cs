@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using FluentAssertions;
 using NUnit.Framework;
 using System;
 
@@ -106,6 +107,26 @@ namespace Tasks
         }
 
         [Test, Timeout(500)]
+        public void ItShouldSetOptionalDeadlinesForTasks()
+        {
+            var today = DateTime.Now.ToShortDateString();
+            Execute("add project training");
+            Execute("add task training Four Elements of Simple Design");
+            Execute("add task training SOLID");
+
+            Execute(string.Format("deadline 1 {0}", today));
+
+            Execute("today");
+            ReadLines(
+                "training",
+				"    [ ] 4: SOLID",
+                ""
+            );
+
+            Execute("quit");
+        }
+
+        [Test, Timeout(500)]
         public void ItShowsAnErrorMessageForUnknownCommand()
         {
             Execute("unknown");
@@ -125,20 +146,20 @@ namespace Tasks
 		private void Read(string expectedOutput)
 		{
 		    var actualOutput = _console.RetrieveOutput(expectedOutput.Length);
-			Assert.AreEqual(expectedOutput, actualOutput);
+		    actualOutput.Should().Be(expectedOutput);
 		}
 
 		private void ReadLines(params string[] expectedOutput)
 		{
 			foreach (var line in expectedOutput)
 			{
-				Read(line + "\r\n");
+				Read(line + Environment.NewLine);
 			}
 		}
 
 		private void Write(string input)
 		{
-			_console.SendInput(input + "\r\n");
+            _console.SendInput(input + Environment.NewLine);
 		}
 	}
 }
