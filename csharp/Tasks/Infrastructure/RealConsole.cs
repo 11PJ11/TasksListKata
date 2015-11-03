@@ -1,6 +1,6 @@
 using System;
 
-namespace Tasks
+namespace Tasks.Infrastructure
 {
 	public class RealConsole : IConsole
 	{

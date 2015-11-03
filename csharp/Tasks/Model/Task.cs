@@ -1,4 +1,6 @@
-namespace Tasks
+using System;
+
+namespace Tasks.Model
 {
 	public class Task
 	{
@@ -16,5 +18,6 @@ namespace Tasks
 		public string Description { get; set; }
 
 		public bool Done { get; set; }
+	    public DateTime Deadline { get; set; }
 	}
 }

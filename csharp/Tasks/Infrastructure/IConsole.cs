@@ -1,4 +1,4 @@
-﻿namespace Tasks
+﻿namespace Tasks.Infrastructure
 {
 	public interface IConsole
 	{

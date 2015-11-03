@@ -34,11 +34,22 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="Projects.cs" />
-    <Compile Include="Task.cs" />
-    <Compile Include="IConsole.cs" />
-    <Compile Include="RealConsole.cs" />
-    <Compile Include="TaskWriter.cs" />
+    <Compile Include="Actions\Action.cs" />
+    <Compile Include="Actions\AddAction.cs" />
+    <Compile Include="Actions\DeadlineAction.cs" />
+    <Compile Include="Actions\IProjectWriter.cs" />
+    <Compile Include="Actions\ProjectWriter.cs" />
+    <Compile Include="Commands\DeadlineCommand.cs" />
+    <Compile Include="Infrastructure\ITaskWriter.cs" />
+    <Compile Include="Model\Projects.cs" />
+    <Compile Include="Actions\ShowAction.cs" />
+    <Compile Include="Model\ProjectsExtensions.cs" />
+    <Compile Include="Model\Task.cs" />
+    <Compile Include="Infrastructure\IConsole.cs" />
+    <Compile Include="Infrastructure\RealConsole.cs" />
+    <Compile Include="Infrastructure\TaskWriter.cs" />
+    <Compile Include="Commands\TodayCommand.cs" />
+    <Compile Include="Actions\TodayAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

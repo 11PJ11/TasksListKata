@@ -55,10 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
+    <Compile Include="DeadlineActionShould.cs" />
+    <Compile Include="DeadlineCommandShould.cs" />
     <Compile Include="FakeConsole.cs" />
     <Compile Include="BlockingStream.cs" />
     <Compile Include="ProducerConsumerStream.cs" />
+    <Compile Include="ProjectWriterShould.cs" />
     <Compile Include="TaskWriterShould.cs" />
+    <Compile Include="TodayActionShould.cs" />
+    <Compile Include="TodayCommandShould.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using Tasks.Actions;
+using Tasks.Commands;
+using Tasks.Infrastructure;
 
-namespace Tasks
+namespace Tasks.Model
 {
     public sealed class Projects
     {
@@ -12,6 +13,8 @@ namespace Tasks
         private const string CHECK = "check";
         private const string UNCHECK = "uncheck";
         private const string HELP = "help";
+        private const string DEADLINE = "deadline";
+        private const string TODAY = "today";
 
         private readonly IDictionary<string, IList<Task>> _projects =
             new Dictionary<string, IList<Task>>();
@@ -20,6 +23,8 @@ namespace Tasks
 
         private long _lastId = 0;
         private string PROMPT = "> ";
+        private readonly IProjectWriter _projectWriter = new ProjectWriter();
+        private readonly ITaskWriter _taskWriter = new TaskWriter();
 
 
         public static void Main(string[] args)
@@ -29,7 +34,7 @@ namespace Tasks
 
         public Projects(IConsole console)
         {
-            this._console = console;
+            _console = console;
         }
 
         public void Run()
@@ -53,10 +58,12 @@ namespace Tasks
             switch (command)
             {
                 case SHOW:
-                    Show();
+                    var showAction = new ShowAction(_projects, _console, _projectWriter);
+                    showAction.Execute();
                     break;
                 case ADD:
-                    Add(commandRest[1]);
+                    var addAction = new AddAction(commandRest[1], _projects, NextId);
+                    addAction.Execute();
                     break;
                 case CHECK:
                     Check(commandRest[1]);
@@ -67,68 +74,20 @@ namespace Tasks
                 case HELP:
                     Help();
                     break;
+                case DEADLINE:
+                    var deadlineCommand = new DeadlineCommand(commandLine);
+                    var deadlineAction = new DeadlineAction(deadlineCommand, _projects);
+                    deadlineAction.Execute();
+                    break;
+                case TODAY:
+                    var todayCommand = new TodayCommand(commandLine);
+                    var todayAction = new TodayAction(_console, _projects, _taskWriter);
+                    todayAction.Execute();
+                    break;
                 default:
                     Error(command);
                     break;
             }
-        }
-
-        private void Show()
-        {
-            WriteAllProjects();
-        }
-
-        private void WriteAllProjects()
-        {
-            foreach (var project in _projects)
-            {
-                WriteOneProject(project);
-            }
-        }
-
-        //TODO: add a project class
-        private void WriteOneProject(KeyValuePair<string, IList<Task>> project)
-        {
-            var tastWriter = new TaskWriter(_console);
-            WriteProjectName(project);
-            tastWriter.WriteTasksIn(project);
-        }
-
-        private void WriteProjectName(KeyValuePair<string, IList<Task>> project)
-        {
-            _console.WriteLine(project.Key);
-        }
-
-        private void Add(string commandLine)
-        {
-            var subcommandRest = commandLine.Split(" ".ToCharArray(), 2);
-            var subcommand = subcommandRest[0];
-            if (subcommand == "project")
-            {
-                AddProject(subcommandRest[1]);
-            }
-            else if (subcommand == "task")
-            {
-                var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
-                AddTask(projectTask[0], projectTask[1]);
-            }
-        }
-
-        private void AddProject(string name)
-        {
-            _projects[name] = new List<Task>();
-        }
-
-        private void AddTask(string project, string description)
-        {
-            IList<Task> projectTasks = _projects[project];
-            if (projectTasks == null)
-            {
-                Console.WriteLine("Could not find a project with the name \"{0}\".", project);
-                return;
-            }
-            var task = new Task(NextId(),description, false);
-            projectTasks.Add(task);
         }
 
         private void Check(string idString)
@@ -144,13 +103,12 @@ namespace Tasks
         private void SetDone(string idString, bool done)
         {
             int id = int.Parse(idString);
-            var identifiedTask = _projects
-                .Select(project => project.Value.FirstOrDefault(task => task.Id == id))
-                .Where(task => task != null)
-                .FirstOrDefault();
+
+            var identifiedTask = _projects.GetTaskById(id);
+
             if (identifiedTask == null)
             {
-                _console.WriteLine("Could not find a task with an ID of {0}.", id);
+                _console.WriteLine("Could not find a task with an ID of {0}.", idString);
                 return;
             }
 
