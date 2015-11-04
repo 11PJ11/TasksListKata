@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using Tasks.Actions;
 using Tasks.Commands;
 using Tasks.Model;
 
-namespace Tasks
+namespace Tasks.Actions
 {
     [TestFixture]
     public sealed class DeadlineActionShould
@@ -15,10 +13,11 @@ namespace Tasks
         public void ItShouldSetTheDeadlineForATask()
         {
             var task = new Task(123, "the description", false);
-            var projects = new Dictionary<string, IList<Task>>
-                           {
-                               {"a project", new []{task}}
-                           };
+            var project = new Project("a project");
+            project.AddTask(task);
+            var projects = new Projects();
+            projects.Add(project);
+                
             var deadlineCommand = new DeadlineCommand("deadline 123 05/11/2015");
             var deadlineAction = new DeadlineAction(deadlineCommand, projects);
             var expDeadline = new DateTime(2015, 11, 5);

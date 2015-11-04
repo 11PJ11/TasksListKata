@@ -14,9 +14,11 @@ namespace Tasks.Infrastructure
             return taskStatus;
         }
 
-        public IEnumerable<string> WriteTasksIn(KeyValuePair<string, IList<Task>> project)
+        public IEnumerable<string> WriteTasksIn(Project project)
         {
-            return project.Value.Select(WriteOneTask).Concat(new []{string.Empty});
+            return project.Tasks
+                .Select(WriteOneTask)
+                .Concat(new []{string.Empty});
         }
     }
 }

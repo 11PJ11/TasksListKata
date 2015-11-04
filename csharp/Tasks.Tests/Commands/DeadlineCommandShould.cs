@@ -1,9 +1,8 @@
 using System;
 using FluentAssertions;
 using NUnit.Framework;
-using Tasks.Commands;
 
-namespace Tasks
+namespace Tasks.Commands
 {
     [TestFixture]
     public sealed class DeadlineCommandShould

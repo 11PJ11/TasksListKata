@@ -9,25 +9,20 @@ namespace Tasks.Actions
     {
         private ITaskWriter _tastWriter;
 
-        public IEnumerable<string> WriteOneProject(KeyValuePair<string, IList<Task>> project)
+        public IEnumerable<string> WriteOneProject(Project project)
         {
             _tastWriter = new TaskWriter();
             var writtenProject =
-                new[]{
-                         WriteProjectName(project)}
+                new[]{project.Name}
                     .Concat(_tastWriter.WriteTasksIn(project));
             
             return writtenProject;
         }
 
-        private static string WriteProjectName(KeyValuePair<string, IList<Task>> project)
+        public IEnumerable<string> WriteAllProjects(Projects projects)
         {
-            return project.Key;
-        }
-
-        public IEnumerable<string> WriteAllProjects(IDictionary<string, IList<Task>> projects)
-        {
-            return projects.SelectMany(WriteOneProject);
+            return projects.Map(WriteOneProject)
+                .SelectMany(x => x.ToList());
         }
     }
 }

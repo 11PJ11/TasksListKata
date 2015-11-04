@@ -6,23 +6,20 @@ namespace Tasks.Model
 {
     public static class ProjectsExtensions
     {
-        public static Task GetTaskById(
-            this IDictionary<string, IList<Task>> projects, long id)
+        public static Task GetTaskById(this IEnumerable<Project> projects, long id)
         {
             return projects
                 .Select(project => 
-                    project.Value
+                    project.Tasks
                     .FirstOrDefault(task => task.Id == id))
                 .FirstOrDefault(task => task != null);
         }
 
-        public static IEnumerable<Task> GetTasksWithDeadlineMatching(
-            this IDictionary<string, IList<Task>> projects,
-            DateTime deadline)
+        public static IEnumerable<Task> GetTasksWithDeadlineMatching(this IEnumerable<Project> projects, DateTime deadline)
         {
             return projects
                 .SelectMany(project => 
-                    project.Value
+                    project.Tasks
                         .Where(task =>
                             task.Deadline.ToShortDateString() == deadline.ToShortDateString()));
 

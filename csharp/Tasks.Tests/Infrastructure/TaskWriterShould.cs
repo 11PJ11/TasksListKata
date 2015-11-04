@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using Tasks.Infrastructure;
 using Tasks.Model;
 
-namespace Tasks
+namespace Tasks.Infrastructure
 {
     [TestFixture]
     public sealed class TaskWriterShould
@@ -30,10 +28,11 @@ namespace Tasks
         [Test]
         public void WriteManyTasks()
         {
-            var task12345 = new Task(12345L, "taskDescription12345", true);
-            var task54321 = new Task(54321L, "taskDescription54321", true);
-            var project = new KeyValuePair<string,IList<Task>>
-                ("projectName",new List<Task>{task12345, task54321});
+            var task12345 = new Task(12345, "taskDescription12345", true);
+            var task54321 = new Task(54321, "taskDescription54321", true);
+            var project = new Project("projectName");
+            project.AddTask(task12345);
+            project.AddTask(task54321);
 
             var writtenTasks = _writer.WriteTasksIn(project);
 

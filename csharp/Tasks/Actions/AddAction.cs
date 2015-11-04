@@ -7,12 +7,12 @@ namespace Tasks.Actions
     public class AddAction : Action
     {
         private readonly string _commandLine;
-        private readonly IDictionary<string, IList<Task>> _projects;
+        private readonly Projects _projects;
         private readonly Func<long> _nextId;
 
         public AddAction(
             string commandLine, 
-            IDictionary<string, IList<Task>> projects, 
+            Projects projects, 
             Func<long> nextId)
         {
             _commandLine = commandLine;
@@ -44,19 +44,24 @@ namespace Tasks.Actions
 
         private void AddProject(string name)
         {
-            _projects[name] = new List<Task>();
+            _projects.Add(new Project(name));
         }
 
-        private void AddTask(string project, string description)
+        private void AddTask(string projectName, string description)
         {
-            var projectTasks = _projects[project];
-            if (projectTasks == null)
-            {
-                Console.WriteLine("Could not find a project with the name \"{0}\".", project);
-                return;
-            }
+            var project = _projects.GetByName(projectName);
             var task = new Task(_nextId(), description, false);
-            projectTasks.Add(task);
+
+            project.AddTask(task);
+
+            //var projectTasks = _projects.GetTasksBy(project);
+            //if (projectTasks == null)
+            //{
+            //    Console.WriteLine("Could not find a project with the name \"{0}\".", project);
+            //    return;
+            //}
+            //var task = new Task(_nextId(), description, false);
+            //projectTasks.Add(task);
         }
 
         

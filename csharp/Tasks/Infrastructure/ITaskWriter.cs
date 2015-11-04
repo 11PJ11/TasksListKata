@@ -6,6 +6,6 @@ namespace Tasks.Infrastructure
     public interface ITaskWriter
     {
         string WriteOneTask(Task task);
-        IEnumerable<string> WriteTasksIn(KeyValuePair<string, IList<Task>> project);
+        IEnumerable<string> WriteTasksIn(Project project);
     }
 }

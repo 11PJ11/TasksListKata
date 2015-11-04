@@ -18,7 +18,7 @@ namespace Tasks
         public void StartTheApplication()
         {
             _console = new FakeConsole();
-            var taskList = new Projects(_console);
+            var taskList = new Program(_console);
             _applicationThread = new Thread(taskList.Run);
             _applicationThread.Start();
         }

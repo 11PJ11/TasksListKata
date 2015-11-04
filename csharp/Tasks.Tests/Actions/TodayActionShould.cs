@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
-using Tasks.Actions;
 using Tasks.Infrastructure;
 using Tasks.Model;
 
-namespace Tasks
+namespace Tasks.Actions
 {
     [TestFixture]
     public sealed class TodayActionShould
@@ -28,12 +26,17 @@ namespace Tasks
             var donutsTask = new Task(2, "DONUTS", false) {Deadline = DateTime.Now};
             var takeOverTask = new Task(3, "TAKE OVER THE WORLD", false);
 
-            var projects = 
-                new Dictionary<string, IList<Task>>
-                {
-                    {"training",new List<Task>{solidTask}},
-                    {"secret",new List<Task>{donutsTask, takeOverTask}}
-                };
+            var trainingProject = new Project("training");
+            trainingProject.AddTask(solidTask);
+
+            var secretProject = new Project("secret");
+            secretProject.AddTask(donutsTask);
+            secretProject.AddTask(takeOverTask);
+            
+            var projects = new Projects();
+            projects.Add(trainingProject);
+            projects.Add(secretProject);
+
             var todayAction = new TodayAction(_console, projects, _taskWriter);
 
             todayAction.Execute();

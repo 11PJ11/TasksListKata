@@ -46,6 +46,10 @@
       <HintPath>..\packages\NSubstitute.1.9.2.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ploeh.AutoFixture, Version=3.36.9.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoFixture.3.36.9\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -55,15 +59,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
-    <Compile Include="DeadlineActionShould.cs" />
-    <Compile Include="DeadlineCommandShould.cs" />
+    <Compile Include="Actions\DeadlineActionShould.cs" />
+    <Compile Include="Commands\DeadlineCommandShould.cs" />
     <Compile Include="FakeConsole.cs" />
     <Compile Include="BlockingStream.cs" />
     <Compile Include="ProducerConsumerStream.cs" />
-    <Compile Include="ProjectWriterShould.cs" />
-    <Compile Include="TaskWriterShould.cs" />
-    <Compile Include="TodayActionShould.cs" />
-    <Compile Include="TodayCommandShould.cs" />
+    <Compile Include="Model\ProjectShould\WhenAddingATask.cs" />
+    <Compile Include="Model\ProjectsShould\WhenMappingOnEachProject.cs" />
+    <Compile Include="Model\ProjectsShould\WhenRetrievingAllTheTaskWithSpecificDeadline.cs" />
+    <Compile Include="Model\ProjectsShould\WhenRetrievingAProjectByName.cs" />
+    <Compile Include="Model\ProjectsShould\WhenRetrievingATaskById.cs" />
+    <Compile Include="Infrastructure\ProjectWriterShould.cs" />
+    <Compile Include="Infrastructure\TaskWriterShould.cs" />
+    <Compile Include="Actions\TodayActionShould.cs" />
+    <Compile Include="Commands\TodayCommandShould.cs" />
+    <Compile Include="Model\ProjectsShould\WhenAddingAProject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -75,6 +85,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

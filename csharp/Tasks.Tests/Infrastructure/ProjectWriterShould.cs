@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using Tasks.Actions;
 using Tasks.Model;
 
-namespace Tasks
+namespace Tasks.Infrastructure
 {
     [TestFixture]
     public sealed class ProjectWriterShould
@@ -20,8 +19,9 @@ namespace Tasks
         [Test]
         public void WriteOneProject()
         {
-            var project = new KeyValuePair<string, IList<Task>>
-            ("training", new[] { new Task(1, "SOLID", false) });
+            var task = new Task(1, "SOLID", false);
+            var project = new Project("training");
+            project.AddTask(task);
             var expectedWrittenProject =
                 new[]
                 {
@@ -38,13 +38,18 @@ namespace Tasks
         [Test]
         public void WriteManyProjects()
         {
-            var projects =
-                new Dictionary<string, IList<Task>>
-                {
-                    { "training", new[] { new Task(1, "SOLID", false) } },
-                    { "secret", new[] { new Task(2, "DONUTS", false) } }
-                };
+            var solidTask = new Task(1, "SOLID", false);
+            var trainingProject = new Project("training");
+            trainingProject.AddTask(solidTask);
 
+            var donutsTask = new Task(2, "DONUTS", false);
+            var secretProject = new Project("secret");
+            secretProject.AddTask(donutsTask);
+
+            var projects = new Projects();
+            projects.Add(trainingProject);
+            projects.Add(secretProject);
+            
             var expectedWrittenProject =
                 new[]
                 {

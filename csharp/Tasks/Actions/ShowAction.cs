@@ -7,10 +7,10 @@ namespace Tasks.Actions
     public class ShowAction : Action
     {
         private readonly IProjectWriter _projectWriter;
-        private readonly IDictionary<string, IList<Task>> _projects;
+        private readonly Projects _projects;
         private readonly IConsole _console;
 
-        public ShowAction(IDictionary<string, IList<Task>> projects, IConsole console, IProjectWriter projectWriter)
+        public ShowAction(Projects projects, IConsole console, IProjectWriter projectWriter)
         {
             _projects = projects;
             _console = console;
