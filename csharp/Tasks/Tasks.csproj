@@ -41,6 +41,7 @@
     <Compile Include="Actions\ProjectWriter.cs" />
     <Compile Include="Commands\DeadlineCommand.cs" />
     <Compile Include="Infrastructure\ITaskWriter.cs" />
+    <Compile Include="Model\Id.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Actions\ShowAction.cs" />
     <Compile Include="Model\Project.cs" />

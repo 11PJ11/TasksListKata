@@ -2,7 +2,7 @@ using System;
 
 namespace Tasks.Model
 {
-	public class Task
+    public class Task
 	{
         private Task() { }
 
