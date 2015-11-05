@@ -19,7 +19,7 @@ namespace Tasks.Model
 
         private readonly IConsole _console;
 
-        private long _lastId = 0;
+        private long _lastId;
         private string PROMPT = "> ";
         private readonly IProjectWriter _projectWriter = new ProjectWriter();
         private readonly ITaskWriter _taskWriter = new TaskWriter();
@@ -78,7 +78,6 @@ namespace Tasks.Model
                     deadlineAction.Execute();
                     break;
                 case TODAY:
-                    var todayCommand = new TodayCommand(commandLine);
                     var todayAction = new TodayAction(_console, _projects, _taskWriter);
                     todayAction.Execute();
                     break;

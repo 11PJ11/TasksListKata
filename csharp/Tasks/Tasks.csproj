@@ -49,7 +49,6 @@
     <Compile Include="Infrastructure\IConsole.cs" />
     <Compile Include="Infrastructure\RealConsole.cs" />
     <Compile Include="Infrastructure\TaskWriter.cs" />
-    <Compile Include="Commands\TodayCommand.cs" />
     <Compile Include="Actions\TodayAction.cs" />
   </ItemGroup>
   <ItemGroup>
