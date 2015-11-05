@@ -1,3 +1,5 @@
+using System;
+
 namespace Tasks.Model
 {
     public class Id
@@ -7,6 +9,9 @@ namespace Tasks.Model
 
         public Id(object id)
         {
+            if (id == null)
+                throw new ArgumentNullException("id");
+
             _id = id;
         }
 
