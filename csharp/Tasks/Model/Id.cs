@@ -15,6 +15,11 @@ namespace Tasks.Model
             _id = id;
         }
 
+        public override string ToString()
+        {
+            return _id.ToString();
+        }
+
         protected bool Equals(Id other)
         {
             return Equals(_id, other._id);

@@ -10,7 +10,12 @@ namespace Tasks.Infrastructure
         public string WriteOneTask(Task task)
         {
             var doneTask = (task.Done ? 'x' : ' ');
-            var taskStatus = String.Format("    [{0}] {1}: {2}", doneTask, task.Id, task.Description);
+            var taskStatus = String.Format(
+                "    [{0}] {1}: {2}", 
+                doneTask, 
+                task.TheId, 
+                task.Description);
+            
             return taskStatus;
         }
 

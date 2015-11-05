@@ -9,9 +9,12 @@ namespace Tasks.Model
 	    public Task(long id, string description, bool done)
 	    {
 	        Id = id;
+            TheId = new Id(id);
 	        Description = description;
 	        Done = done;
 	    }
+
+        public Id TheId { get; private set; }
 
 		public long Id { get; private set; }
 
