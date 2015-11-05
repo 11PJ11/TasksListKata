@@ -39,6 +39,24 @@ namespace Tasks
         }
 
         [Test, Timeout(1000)]
+        public void ItCanAddANewTaskWithNonNumericId()
+        {
+            Execute("show");
+
+            Execute("add project secrets");
+            Execute("add task secrets 'a-123' Destroy all humans.");
+
+            Execute("show");
+            ReadLines(
+                "secrets",
+                "    [ ] a-123: Destroy all humans.",
+                ""
+            );
+
+            Execute("quit");
+        }
+
+        [Test, Timeout(1000)]
         public void ItWorks()
         {
             Execute("show");

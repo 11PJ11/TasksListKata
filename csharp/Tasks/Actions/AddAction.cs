@@ -34,10 +34,10 @@ namespace Tasks.Actions
             if (subcommand == "task")
             {
                 var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
-                var taskName = projectTask[0];
+                var projectName = projectTask[0];
                 var taskDescription = projectTask[1];
 
-                AddTask(taskName, taskDescription);
+                AddTask(projectName, taskDescription);
             }
         }
 
