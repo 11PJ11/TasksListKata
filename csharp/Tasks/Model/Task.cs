@@ -13,7 +13,7 @@ namespace Tasks.Model
 	        Done = done;
 	    }
 
-		public long Id { get; set; }
+		public long Id { get; private set; }
 
 		public string Description { get; set; }
 
