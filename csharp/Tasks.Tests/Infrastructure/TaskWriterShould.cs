@@ -18,7 +18,7 @@ namespace Tasks.Infrastructure
         [Test]
         public void WriteATask()
         {
-            var task = new Task(12345L, "taskDescription", true);
+            var task = new Task(new Id(12345), "taskDescription", true);
 
             var writtenTask = _writer.WriteOneTask(task);
 
@@ -28,8 +28,8 @@ namespace Tasks.Infrastructure
         [Test]
         public void WriteManyTasks()
         {
-            var task12345 = new Task(12345, "taskDescription12345", true);
-            var task54321 = new Task(54321, "taskDescription54321", true);
+            var task12345 = new Task(new Id(12345), "taskDescription12345", true);
+            var task54321 = new Task(new Id(54321), "taskDescription54321", true);
             var project = new Project("projectName");
             project.AddTask(task12345);
             project.AddTask(task54321);

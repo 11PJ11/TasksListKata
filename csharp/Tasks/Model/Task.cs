@@ -6,26 +6,24 @@ namespace Tasks.Model
 	{
         private Task() { }
 
-	    public Task(long id, string description, bool done)
-	    {
-	        Id = id;
-            TheId = new Id(id);
-	        Description = description;
-	        Done = done;
-	    }
+        public Task(Id id, string description, bool done)
+        {
+            Id = id;
+            Description = description;
+            Done = done;
+        }
 
-        public Id TheId { get; private set; }
-
-		public long Id { get; private set; }
+        public Id Id { get; private set; }
 
 		public string Description { get; set; }
 
 		public bool Done { get; set; }
+
 	    public DateTime Deadline { get; set; }
 
 	    protected bool Equals(Task other)
 	    {
-	        return Id == other.Id && 
+	        return Id.Equals(other.Id) && 
                    string.Equals(Description, other.Description) && 
                    Done.Equals(other.Done) && 
                    Deadline.Equals(other.Deadline);

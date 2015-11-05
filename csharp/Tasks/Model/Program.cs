@@ -99,7 +99,7 @@ namespace Tasks.Model
 
         private void SetDone(string idString, bool done)
         {
-            int id = int.Parse(idString);
+            var id = new Id(idString);
 
             var identifiedTask = _projects.GetTaskById(id);
 

@@ -21,7 +21,7 @@ namespace Tasks.Model.ProjectsShould
             var project = new Project(PROJECT_NAME);
             _projects.Add(project);
 
-            var foundProject = _projects.GetByName(PROJECT_NAME);
+            var foundProject = _projects.GetProjectByName(PROJECT_NAME);
 
             foundProject.Should().Be(project);
         }

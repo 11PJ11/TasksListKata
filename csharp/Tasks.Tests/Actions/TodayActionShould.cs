@@ -22,9 +22,9 @@ namespace Tasks.Actions
         [Test]
         public void ShowTheTasksThatHaveADeadlineSetForToday()
         {
-            var solidTask = new Task(1, "SOLID", false) {Deadline = DateTime.Now};
-            var donutsTask = new Task(2, "DONUTS", false) {Deadline = DateTime.Now};
-            var takeOverTask = new Task(3, "TAKE OVER THE WORLD", false);
+            var solidTask = new Task(new Id(1), "SOLID", false) {Deadline = DateTime.Now};
+            var donutsTask = new Task(new Id(2), "DONUTS", false) {Deadline = DateTime.Now};
+            var takeOverTask = new Task(new Id(3), "TAKE OVER THE WORLD", false);
 
             var trainingProject = new Project("training");
             trainingProject.AddTask(solidTask);

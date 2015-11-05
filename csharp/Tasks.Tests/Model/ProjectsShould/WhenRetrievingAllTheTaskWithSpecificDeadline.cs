@@ -21,7 +21,7 @@ namespace Tasks.Model.ProjectsShould
             var today = DateTime.Now;
             
             var moreDonutsTask = 
-                new Task(123, "MORE DONUTS", false)
+                new Task(new Id(123), "MORE DONUTS", false)
                 {
                     Deadline = today
                 };
@@ -29,7 +29,7 @@ namespace Tasks.Model.ProjectsShould
             secretProject.AddTask(moreDonutsTask);
 
             var solidTask =
-                new Task(654, "SOLID", false);
+                new Task(new Id(654), "SOLID", false);
             var normalProject = new Project("normal");
             normalProject.AddTask(solidTask);
             

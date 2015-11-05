@@ -13,17 +13,16 @@ namespace Tasks.Model
             _projects.Add(project);
         }
 
-        public Project GetByName(string projectName)
+        public Project GetProjectByName(string projectName)
         {
             return _projects.Find(project => project.Name == projectName);
         }
 
-        public Task GetTaskById(long taskId)
+        public Task GetTaskById(Id id)
         {
             return _projects
                 .SelectMany(p =>
-                    p.Tasks
-                        .Where(t => t.Id == taskId))
+                    p.Tasks.Where(t => t.Id.Equals(id)))
                 .First();
         }
 

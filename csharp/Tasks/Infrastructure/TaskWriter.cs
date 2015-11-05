@@ -13,7 +13,7 @@ namespace Tasks.Infrastructure
             var taskStatus = String.Format(
                 "    [{0}] {1}: {2}", 
                 doneTask, 
-                task.TheId, 
+                task.Id, 
                 task.Description);
             
             return taskStatus;

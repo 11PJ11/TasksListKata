@@ -6,7 +6,7 @@ namespace Tasks.Model.ProjectsShould
     [TestFixture]
     public sealed class WhenRetrievingATaskById
     {
-        private const int TASK_ID = 123;
+        private readonly Id TASK_ID = new Id(123);
         private Projects _projects;
 
         [SetUp]
@@ -16,7 +16,7 @@ namespace Tasks.Model.ProjectsShould
         }
 
         [Test]
-        public void ReturnTheTask()
+        public void ReturnTheTask_GivenWasAdded()
         {
             var task = new Task(TASK_ID, "MORE DONUTS", false);
             var project = new Project("secret");

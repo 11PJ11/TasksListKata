@@ -12,7 +12,7 @@ namespace Tasks.Actions
         [Test]
         public void ItShouldSetTheDeadlineForATask()
         {
-            var task = new Task(123, "the description", false);
+            var task = new Task(new Id("123"), "the description", false);
             var project = new Project("a project");
             project.AddTask(task);
             var projects = new Projects();

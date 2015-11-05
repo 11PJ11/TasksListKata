@@ -4,9 +4,6 @@ namespace Tasks.Model
 {
     public class Id
     {
-        private readonly object _id;
-        private Id() { }
-
         public Id(object id)
         {
             if (id == null)
@@ -18,11 +15,6 @@ namespace Tasks.Model
         public override string ToString()
         {
             return _id.ToString();
-        }
-
-        protected bool Equals(Id other)
-        {
-            return Equals(_id, other._id);
         }
 
         public override bool Equals(object obj)
@@ -37,5 +29,14 @@ namespace Tasks.Model
         {
             return (_id != null ? _id.GetHashCode() : 0);
         }
+
+        protected bool Equals(Id other)
+        {
+            return string.Equals(_id.ToString(), other._id.ToString());
+        }
+
+        private readonly object _id;
+
+        private Id() { }
     }
 }
