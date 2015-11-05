@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
     <Compile Include="Actions\DeadlineActionShould.cs" />
+    <Compile Include="Commands\AddTaskCommandShould.cs" />
     <Compile Include="Commands\DeadlineCommandShould.cs" />
     <Compile Include="FakeConsole.cs" />
     <Compile Include="BlockingStream.cs" />

@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Actions\Action.cs" />
     <Compile Include="Actions\AddAction.cs" />
+    <Compile Include="Actions\AddTaskCommand.cs" />
     <Compile Include="Actions\DeadlineAction.cs" />
     <Compile Include="Actions\IProjectWriter.cs" />
     <Compile Include="Actions\ProjectWriter.cs" />
