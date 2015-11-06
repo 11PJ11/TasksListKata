@@ -60,7 +60,7 @@ namespace Tasks.Model
                     showAction.Execute();
                     break;
                 case ADD:
-                    var addAction = new AddAction(commandRest[1], _projects, NextId);
+                    var addAction = new AddAction(commandLine, _projects, NextId);
                     addAction.Execute();
                     break;
                 case CHECK:

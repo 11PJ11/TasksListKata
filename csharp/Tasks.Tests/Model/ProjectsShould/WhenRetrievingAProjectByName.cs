@@ -6,7 +6,9 @@ namespace Tasks.Model.ProjectsShould
     [TestFixture]
     public sealed class WhenRetrievingAProjectByName
     {
-        private const string PROJECT_NAME = "secret";
+        private const string SECRET_PROJECT = "secret";
+        private const string NORMAL_PROJECT = "normal";
+
         private Projects _projects;
 
         [SetUp]
@@ -18,12 +20,14 @@ namespace Tasks.Model.ProjectsShould
         [Test]
         public void ReturnTheProject()
         {
-            var project = new Project(PROJECT_NAME);
-            _projects.Add(project);
+            var secrest = new Project(SECRET_PROJECT);
+            var normal = new Project(NORMAL_PROJECT);
+            _projects.Add(secrest);
+            _projects.Add(normal);
 
-            var foundProject = _projects.GetProjectByName(PROJECT_NAME);
+            var foundProject = _projects.GetProjectByName(SECRET_PROJECT);
 
-            foundProject.Should().Be(project);
+            foundProject.Should().Be(secrest);
         }
     }
 }

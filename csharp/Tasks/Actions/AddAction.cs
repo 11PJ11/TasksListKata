@@ -21,23 +21,20 @@ namespace Tasks.Actions
 
         public override void Execute()
         {
-            var subcommandRest = _commandLine.Split(" ".ToCharArray(), 2);
-            var subcommand = subcommandRest[0];
+            var subcommandRest = _commandLine.Split(" ".ToCharArray(), 3);
+            var subcommand = subcommandRest[1];
 
             if (subcommand == "project")
             {
-                var projectName = subcommandRest[1];
+                var projectName = subcommandRest[2];
 
                 AddProject(projectName);
             }
 
             if (subcommand == "task")
             {
-                var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
-                var projectName = projectTask[0];
-                var taskDescription = projectTask[1];
-
-                AddTask(projectName, taskDescription);
+                var addTaskCommand = new AddTaskCommand(_commandLine, _nextId);
+                AddTask(addTaskCommand);
             }
         }
 
@@ -46,15 +43,11 @@ namespace Tasks.Actions
             _projects.Add(new Project(name));
         }
 
-        private void AddTask(string projectName, string description)
+        private void AddTask(AddTaskCommand addTaskCommand)
         {
-            var project = _projects.GetProjectByName(projectName);
-            var id = new Id(_nextId());
-            var task = new Task(id, description, false);
-
+            var task = new Task(addTaskCommand.TaskId, addTaskCommand.TaskDescription, false);
+            var project = _projects.GetProjectByName(addTaskCommand.ProjectName);
             project.AddTask(task);
         }
-
-        
     }
 }

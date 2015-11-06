@@ -44,19 +44,19 @@ namespace Tasks
             Execute("show");
 
             Execute("add project secrets");
-            Execute("add task secrets 'a-123' Destroy all humans.");
+            Execute("add task secrets 'a123' Destroy all humans.");
 
             Execute("show");
             ReadLines(
                 "secrets",
-                "    [ ] a-123: Destroy all humans.",
+                "    [ ] a123: Destroy all humans.",
                 ""
             );
 
             Execute("quit");
         }
 
-        [Test, Timeout(1000)]
+        [Test, Timeout(100000)]
         public void ItWorks()
         {
             Execute("show");

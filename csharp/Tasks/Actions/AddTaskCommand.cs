@@ -7,7 +7,6 @@ namespace Tasks.Actions
     {
         public string ProjectName { get; private set; }
         public Id TaskId { get; private set; }
-        public string Description { get; private set; }
         public string TaskDescription { get; private set; }
 
         public AddTaskCommand(string commandLine, Func<long> nextId)
@@ -33,9 +32,17 @@ namespace Tasks.Actions
 
         private static string GetTaskDescription(string[] projectTask)
         {
-            return projectTask[1].Contains("'")
+            if (projectTask.Length < 3)
+                return projectTask[1];
+
+            return HasCustomTaskId(projectTask)
                 ? projectTask[2]
                 : projectTask[1] + " " + projectTask[2];
+        }
+
+        private static bool HasCustomTaskId(string[] projectTask)
+        {
+            return projectTask[1].Contains("'");
         }
 
         private Id GetTaskId(string[] projectTask)
