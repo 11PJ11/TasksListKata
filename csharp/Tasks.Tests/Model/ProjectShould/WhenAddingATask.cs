@@ -1,29 +1,23 @@
 ﻿using FluentAssertions;
+using NSubstitute;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace Tasks.Model.ProjectShould
 {
     [TestFixture]
     public class WhenAddingATask
     {
-        private Fixture _fixture;
-
-        [SetUp]
-        public void Setup()
-        {
-            _fixture = new Fixture();
-        }
+        private readonly Project _project = new Project("secret");
+        private Task A_TASK;
 
         [Test]
         public void StoreTheTask()
         {
-            var project = new Project("secret");
-            var aTask = _fixture.Create<Task>();
+            A_TASK = Arg.Any<Task>();
+            
+            _project.AddTask(A_TASK);
 
-            project.AddTask(aTask);
-
-            project.Tasks.Should().Contain(aTask);
+            _project.Tasks.Should().Contain(A_TASK);
         }
     }
 }

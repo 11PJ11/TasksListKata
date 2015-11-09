@@ -11,12 +11,12 @@ namespace Tasks.Commands
         [Test]
         public void CreateItselfOutOfACommandLine()
         {
-            const string commandLine = "deadline a-123 05/11/2015";
+            const string commandLine = "deadline a123 05/11/2015";
 
             var deadlineCommand = new DeadlineCommand(commandLine);
 
             deadlineCommand.Name.Should().Be("deadline");
-            deadlineCommand.TaskId.Should().Be(new Id("a-123"));
+            deadlineCommand.TaskId.Should().Be(new Id("a123"));
             deadlineCommand.Deadline.Should().Be(new DateTime(2015, 11, 5));
         }
     }

@@ -10,39 +10,40 @@ namespace Tasks.Actions
     public sealed class TodayActionShould
     {
         private IConsole _console;
+        private IProjects _projects;
         private ITaskWriter _taskWriter;
+        private TodayAction _todayAction;
+        private Task[] _todaysTasks;
+        private readonly string A_WRITABLE_TASK = "blah blah blah";
+        private DateTime TODAY = Arg.Any<DateTime>();
+        private Task A_TASK = Arg.Any<Task>();
 
         [SetUp]
         public void Setup()
         {
+            _todaysTasks = new[] {
+                new Task(new Id("123"),"SOLID",false){Deadline = DateTime.Now},
+                new Task(new Id("456"),"DONUTS",false){Deadline = DateTime.Now}
+            };
+
+            _projects = Substitute.For<IProjects>();
             _console = Substitute.For<IConsole>();
-            _taskWriter = new TaskWriter();
+            _taskWriter = Substitute.For<ITaskWriter>();
+            _todayAction = new TodayAction(_console, _projects, _taskWriter);
         }
 
         [Test]
         public void ShowTheTasksThatHaveADeadlineSetForToday()
         {
-            var solidTask = new Task(new Id(1), "SOLID", false) {Deadline = DateTime.Now};
-            var donutsTask = new Task(new Id(2), "DONUTS", false) {Deadline = DateTime.Now};
-            var takeOverTask = new Task(new Id(3), "TAKE OVER THE WORLD", false);
+            var TODAYS_TASKS_COUNT = _todaysTasks.Length;
+            _projects.GetTasksWithDeadlineSetFor(TODAY)
+                .Returns(_todaysTasks);
+            _taskWriter.WriteOneTask(A_TASK)
+                .Returns(A_WRITABLE_TASK);
 
-            var trainingProject = new Project("training");
-            trainingProject.AddTask(solidTask);
+            _todayAction.Execute();
 
-            var secretProject = new Project("secret");
-            secretProject.AddTask(donutsTask);
-            secretProject.AddTask(takeOverTask);
-            
-            var projects = new Projects();
-            projects.Add(trainingProject);
-            projects.Add(secretProject);
-
-            var todayAction = new TodayAction(_console, projects, _taskWriter);
-
-            todayAction.Execute();
-
-            _console.Received().WriteLine("    [ ] 1: SOLID");
-            _console.Received().WriteLine("    [ ] 2: DONUTS");
+            _console.Received(TODAYS_TASKS_COUNT).WriteLine(Arg.Any<string>());
         }
     }
 }

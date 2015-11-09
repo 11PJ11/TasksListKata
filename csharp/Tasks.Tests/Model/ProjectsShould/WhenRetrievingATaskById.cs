@@ -6,7 +6,7 @@ namespace Tasks.Model.ProjectsShould
     [TestFixture]
     public sealed class WhenRetrievingATaskById
     {
-        private readonly Id TASK_ID = new Id(123);
+        private readonly Id TASK_ID = new Id("123");
         private Projects _projects;
 
         [SetUp]

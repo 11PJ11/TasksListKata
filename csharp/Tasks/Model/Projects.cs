@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Tasks.Model
 {
-    public class Projects
+    public class Projects : IProjects
     {
         private readonly List<Project> _projects = new List<Project>();
 
@@ -26,12 +26,12 @@ namespace Tasks.Model
                 .First();
         }
 
-        public IEnumerable<Task> GetTasksWithDeadlineMatching(DateTime date)
+        //TODO: move the filter closer to Tasks
+        public IEnumerable<Task> GetTasksWithDeadlineSetFor(DateTime date)
         {
-            return _projects
-                .SelectMany(p =>
-                    p.Tasks
-                    .Where(t => t.Deadline.ToShortDateString() == date.ToShortDateString()));
+            return _projects.SelectMany(project =>
+                    project.Tasks.Where(task => 
+                        task.Deadline.ToShortDateString() == date.ToShortDateString()));
         }
 
         public IEnumerable<TResult> Map<TResult>(

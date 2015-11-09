@@ -43,6 +43,7 @@
     <Compile Include="Commands\DeadlineCommand.cs" />
     <Compile Include="Infrastructure\ITaskWriter.cs" />
     <Compile Include="Model\Id.cs" />
+    <Compile Include="Model\IProjects.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Actions\ShowAction.cs" />
     <Compile Include="Model\Project.cs" />
@@ -55,5 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ namespace Tasks.Infrastructure
         [Test]
         public void WriteOneProject()
         {
-            var task = new Task(new Id(1), "SOLID", false);
+            var task = new Task(new Id("1"), "SOLID", false);
             var project = new Project("training");
             project.AddTask(task);
             var expectedWrittenProject =
@@ -38,11 +38,11 @@ namespace Tasks.Infrastructure
         [Test]
         public void WriteManyProjects()
         {
-            var solidTask = new Task(new Id(1), "SOLID", false);
+            var solidTask = new Task(new Id("1"), "SOLID", false);
             var trainingProject = new Project("training");
             trainingProject.AddTask(solidTask);
 
-            var donutsTask = new Task(new Id(2), "DONUTS", false);
+            var donutsTask = new Task(new Id("2"), "DONUTS", false);
             var secretProject = new Project("secret");
             secretProject.AddTask(donutsTask);
 

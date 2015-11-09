@@ -64,7 +64,6 @@
     <Compile Include="Commands\DeadlineCommandShould.cs" />
     <Compile Include="FakeConsole.cs" />
     <Compile Include="BlockingStream.cs" />
-    <Compile Include="Model\IdShould\WhenComparingToAnotherId.cs" />
     <Compile Include="Model\IdShould\WhenCreatingTheId.cs" />
     <Compile Include="ProducerConsumerStream.cs" />
     <Compile Include="Model\ProjectShould\WhenAddingATask.cs" />

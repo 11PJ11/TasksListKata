@@ -31,7 +31,7 @@ namespace Tasks.Commands
 
             var addTaskCommand = new AddTaskCommand(commandLine, _nextId);
 
-            addTaskCommand.TaskId.Should().Be(new Id(123));
+            addTaskCommand.TaskId.Should().Be(new Id("123"));
             addTaskCommand.ProjectName.Should().Be("secrets");
             addTaskCommand.TaskDescription.Should().Be("Coupling and Cohesion");
         }
@@ -44,7 +44,7 @@ namespace Tasks.Commands
 
             var addTaskCommand = new AddTaskCommand(commandLine, _nextId);
 
-            addTaskCommand.TaskId.Should().Be(new Id(123));
+            addTaskCommand.TaskId.Should().Be(new Id("123"));
             addTaskCommand.ProjectName.Should().Be("secrets");
             addTaskCommand.TaskDescription.Should().Be("SOLID");
         }

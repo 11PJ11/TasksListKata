@@ -49,7 +49,7 @@ namespace Tasks.Actions
         {
             return projectTask[1].Contains("'")
                 ? new Id(projectTask[1].Replace("'",""))
-                : new Id(_nextId());
+                : new Id(_nextId().ToString());
         }
 
         private readonly Func<long> _nextId;
