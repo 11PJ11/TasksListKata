@@ -44,6 +44,7 @@
     <Compile Include="Infrastructure\ITaskWriter.cs" />
     <Compile Include="Model\Id.cs" />
     <Compile Include="Model\IProjects.cs" />
+    <Compile Include="Model\ITasks.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Actions\ShowAction.cs" />
     <Compile Include="Model\Project.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Infrastructure\RealConsole.cs" />
     <Compile Include="Infrastructure\TaskWriter.cs" />
     <Compile Include="Actions\TodayAction.cs" />
+    <Compile Include="Model\Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -7,17 +7,23 @@ namespace Tasks.Model.ProjectShould
     [TestFixture]
     public class WhenAddingATask
     {
-        private readonly Project _project = new Project("secret");
-        private Task A_TASK;
+        private readonly ITasks _tasks = Substitute.For<ITasks>();
+        private Project _project;
+        private Task A_TASK = new Task(new Id("123"), "a task", false);
+
+        [SetUp]
+        public void Setup()
+        {
+            _project = new Project("secret", _tasks);
+        }
 
         [Test]
         public void StoreTheTask()
         {
-            A_TASK = Arg.Any<Task>();
-            
             _project.AddTask(A_TASK);
 
             _project.Tasks.Should().Contain(A_TASK);
+            _tasks.Received().Add(A_TASK);
         }
     }
 }

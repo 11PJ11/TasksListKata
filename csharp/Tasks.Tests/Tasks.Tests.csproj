@@ -65,6 +65,8 @@
     <Compile Include="FakeConsole.cs" />
     <Compile Include="BlockingStream.cs" />
     <Compile Include="Model\IdShould\WhenCreatingTheId.cs" />
+    <Compile Include="Model\TasksShould\WhenAddingATask.cs" />
+    <Compile Include="Model\TasksShould\WhenComparing.cs" />
     <Compile Include="ProducerConsumerStream.cs" />
     <Compile Include="Model\ProjectShould\WhenAddingATask.cs" />
     <Compile Include="Model\ProjectsShould\WhenMappingOnEachProject.cs" />

@@ -33,9 +33,6 @@ namespace Tasks
             }
 
             _applicationThread.Abort();
-
-            if (_applicationThread.IsAlive)
-                throw new Exception("The application is still running.");
         }
 
         [Test, Timeout(1000)]

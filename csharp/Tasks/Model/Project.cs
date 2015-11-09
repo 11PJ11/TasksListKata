@@ -3,21 +3,26 @@ using System.Linq;
 
 namespace Tasks.Model
 {
-    public class Project
+    public sealed class Project
     {
         public readonly string Name = "";
         public readonly IList<Task> Tasks = new List<Task>();
-
+        private readonly ITasks _tasks;
         private Project() { }
 
-        public Project(string name)
+        public Project(string name) : this(name, new Tasks())
+        {}
+
+        public Project(string name, ITasks tasks)
         {
             Name = name;
+            _tasks = tasks;
         }
 
         public void AddTask(Task task)
         {
             Tasks.Add(task);
+            _tasks.Add(task);
         }
 
         protected bool Equals(Project other)

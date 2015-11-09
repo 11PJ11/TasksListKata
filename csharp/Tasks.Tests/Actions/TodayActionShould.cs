@@ -14,6 +14,7 @@ namespace Tasks.Actions
         private ITaskWriter _taskWriter;
         private TodayAction _todayAction;
         private Task[] _todaysTasks;
+
         private readonly string A_WRITABLE_TASK = "blah blah blah";
         private DateTime TODAY = Arg.Any<DateTime>();
         private Task A_TASK = Arg.Any<Task>();
@@ -36,6 +37,7 @@ namespace Tasks.Actions
         public void ShowTheTasksThatHaveADeadlineSetForToday()
         {
             var TODAYS_TASKS_COUNT = _todaysTasks.Length;
+
             _projects.GetTasksWithDeadlineSetFor(TODAY)
                 .Returns(_todaysTasks);
             _taskWriter.WriteOneTask(A_TASK)
