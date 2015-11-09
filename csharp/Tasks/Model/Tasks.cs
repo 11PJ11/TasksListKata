@@ -1,4 +1,4 @@
-
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,8 +6,8 @@ namespace Tasks.Model
 {
     public sealed class Tasks : ITasks
     {
-        private readonly IList<Task> _tasks = new List<Task>();
- 
+        private IList<Task> _tasks = new List<Task>();
+
         public void Add(Task task)
         {
             _tasks.Add(task);
@@ -23,12 +23,27 @@ namespace Tasks.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj is Tasks && Equals((Tasks) obj);
+            return obj is Tasks && Equals((Tasks)obj);
         }
 
         public override int GetHashCode()
         {
             return (_tasks != null ? _tasks.GetHashCode() : 0);
+        }
+
+        public Tasks GetByDeadline(DateTime deadline)
+        {
+            var foundTasks = new Tasks
+                             {
+                                 _tasks = _tasks
+                                     .Where(task =>
+                                     string.Equals(
+                                         task.Deadline.ToShortDateString(),
+                                         deadline.ToShortDateString()))
+                                     .ToList()
+                             };
+
+            return foundTasks;
         }
     }
 }

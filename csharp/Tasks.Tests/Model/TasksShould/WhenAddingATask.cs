@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Tasks.Actions;
 
 namespace Tasks.Model.TasksShould
 {
