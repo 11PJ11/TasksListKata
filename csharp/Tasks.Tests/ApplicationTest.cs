@@ -54,6 +54,29 @@ namespace Tasks
         }
 
         [Test, Timeout(100000)]
+        public void ItCanDeleteATask()
+        {
+            Execute("show");
+            Execute("add project secrets");
+            Execute("add task secrets Eat more donuts.");
+            Execute("add task secrets Destroy all humans.");
+            Execute("show");
+            ReadLines(
+                "secrets",
+                "    [ ] 1: Eat more donuts.",
+                "    [ ] 2: Destroy all humans.",
+                "");
+
+            Execute("delete 2");
+
+            Execute("show");
+            ReadLines(
+                "secrets",
+                "    [ ] 1: Eat more donuts.",
+                "");
+        }
+
+        [Test, Timeout(100000)]
         public void ItWorks()
         {
             Execute("show");

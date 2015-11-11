@@ -13,6 +13,21 @@ namespace Tasks.Model
             _tasks.Add(task);
         }
 
+        public Tasks GetByDeadline(DateTime deadline)
+        {
+            var foundTasks = new Tasks
+                             {
+                                 _tasks = _tasks
+                                     .Where(task =>
+                                     string.Equals(
+                                         task.Deadline.ToShortDateString(),
+                                         deadline.ToShortDateString()))
+                                     .ToList()
+                             };
+
+            return foundTasks;
+        }
+
         private bool Equals(Tasks other)
         {
             return _tasks.Count == other._tasks.Count &&
@@ -29,21 +44,6 @@ namespace Tasks.Model
         public override int GetHashCode()
         {
             return (_tasks != null ? _tasks.GetHashCode() : 0);
-        }
-
-        public Tasks GetByDeadline(DateTime deadline)
-        {
-            var foundTasks = new Tasks
-                             {
-                                 _tasks = _tasks
-                                     .Where(task =>
-                                     string.Equals(
-                                         task.Deadline.ToShortDateString(),
-                                         deadline.ToShortDateString()))
-                                     .ToList()
-                             };
-
-            return foundTasks;
         }
     }
 }
